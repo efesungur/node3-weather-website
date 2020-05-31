@@ -25,7 +25,7 @@ weatherForm.addEventListener('submit', (e) => {
             } else {
                 img.src = data.icon
                 
-                message1.textContent = `location: ${data.location} \r\ntemperature: ${data.temperature} \r\ndescription: ${data.description} \r\nunit: ${data.unit}`
+                message1.textContent = `In ${data.location} \r\ntemperature is ${data.temperature} degrees \r\nFeels like ${data.feelsLike} degrees \r\nIt is ${data.description} \r\nhumidity is ${data.humidity}% \r\ndegrees in unit type: ${data.unit} `
             }
 
             search.value = ''

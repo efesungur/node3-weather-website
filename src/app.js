@@ -58,20 +58,22 @@ app.get('/weather', (req, res) => {
 
         var key = Object.keys(geocodeObject)[0] // first and only key of the object. This is a json array
 
-        forecast(geocodeObject[key][0].latitude, geocodeObject[key][0].longtitude, (error, {description, location, temperature, unit, icon}) => {
+        forecast(geocodeObject[key][0].latitude, geocodeObject[key][0].longtitude, (error, forecastObject) => {
             if(error) {
                 console.log(error)
                 return res.send({ error })
             }
 
-            console.log(`description: ${description}, location: ${location}, temperature: ${temperature}, unit: ${unit}`)
+            console.log(`description: ${forecastObject.description}, location: ${forecastObject.location}, temperature: ${forecastObject.temperature}, unit: ${forecastObject.unit}`)
 
             res.send({
-                description: description,
-                location: location,
-                temperature: temperature,
-                unit: unit,
-                icon: icon
+                description: forecastObject.description,
+                location: forecastObject.location,
+                temperature: forecastObject.temperature,
+                unit: forecastObject.unit,
+                icon: forecastObject.icon,
+                humidity: forecastObject.humidity,
+                feelsLike: forecastObject.feelsLike
             })
         })
     })

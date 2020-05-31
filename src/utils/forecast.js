@@ -16,7 +16,9 @@ const forecast = (latitude, longtitude, callback) => {
                    location : _.location.name + '/' + _.location.region + '/' + _.location.country,
                    temperature: _.current.temperature,
                    unit: _.request.unit,
-                   icon: _.current.weather_icons[0]
+                   icon: _.current.weather_icons[0],
+                   humidity: _.current.humidity,
+                   feelsLike: _.current.feelslike
                })
             }
         }
