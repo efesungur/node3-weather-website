@@ -23,14 +23,14 @@ app.use(express.static(path.join(publicDirectoryPath)))
 app.get('', (req, res) => {
     res.render('index', {
         title: 'Weather App',
-        name: 'Andrew Mead'
+        name: 'Efe Sungur'
     })
 })
 
 app.get('/about', (req,res) => {
     res.render('about', {
         title: 'About Me',
-        name: 'Andrew Mead'
+        name: 'Efe Sungur'
     })
 })
 
@@ -38,7 +38,7 @@ app.get('/help', (req, res) => {
     res.render('help', {
         helpText: 'Help Page',
         title: 'Help',
-        name: 'Andrew Mead'
+        name: 'Efe Sungur'
     })
 })
 
@@ -49,21 +49,29 @@ app.get('/weather', (req, res) => {
         })
     }
 
-    geocode(req.query.address, (error, {latitude, longtitude} = {}) => {
+    geocode(req.query.address, (error, geocodeObject = {}) => {
         if(error) {
             return res.send({ error })
         }
 
-        forecast(latitude, longtitude, (error, {description, location, temperature, unit}) => {
+        console.log(geocodeObject)
+
+        var key = Object.keys(geocodeObject)[0] // first and only key of the object. This is a json array
+
+        forecast(geocodeObject[key][0].latitude, geocodeObject[key][0].longtitude, (error, {description, location, temperature, unit, icon}) => {
             if(error) {
+                console.log(error)
                 return res.send({ error })
             }
 
+            console.log(`description: ${description}, location: ${location}, temperature: ${temperature}, unit: ${unit}`)
+
             res.send({
                 description: description,
-                location : location,
+                location: location,
                 temperature: temperature,
-                unit: unit
+                unit: unit,
+                icon: icon
             })
         })
     })
@@ -72,7 +80,7 @@ app.get('/weather', (req, res) => {
 app.get('/help/*', (req, res) => {
     res.render('404', {
         title: '404',
-        name: 'Andrew Mead',
+        name: 'Efe Sungur',
         errorMessage: 'Help is not found'
     })
 })
@@ -80,7 +88,7 @@ app.get('/help/*', (req, res) => {
 app.get('*', (req, res) => {
     res.render('404', {
         title: '404',
-        name: 'Andrew Mead',
+        name: 'Efe Sungur',
         errorMessage: 'Page is not found'
     })
 })

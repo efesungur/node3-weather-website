@@ -13,9 +13,10 @@ const forecast = (latitude, longtitude, callback) => {
             } else {
                callback(undefined, {
                    description: _.current.weather_descriptions[0],
-                   location : _.location.region,
+                   location : _.location.name + '/' + _.location.region + '/' + _.location.country,
                    temperature: _.current.temperature,
-                   unit: _.request.unit
+                   unit: _.request.unit,
+                   icon: _.current.weather_icons[0]
                })
             }
         }
